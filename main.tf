@@ -4,3 +4,5 @@ resource "aws_docdb_subnet_group" "main" {
   tags       = merge(local.tags, {Name = "${local.name_prefix}-subnet-group" })
 }
 
+
+
