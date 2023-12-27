@@ -38,7 +38,7 @@ resource "aws_docdb_cluster_parameter_group" "main" {
 
 
 resource "aws_docdb_cluster" "docdb" {
-  cluster_identifier                = "{local.name_prefix}-cluster"
+  cluster_identifier                = "${local.name_prefix}-cluster"
   engine                            = "docdb"
   master_username                   = "data.aws_ssm_parameter.master_username.value"
   master_password                   = "data.aws_ssm_parameter.master_password.value"
@@ -51,6 +51,7 @@ resource "aws_docdb_cluster" "docdb" {
   tags                              = merge(local.tags, {Name = "${local.name_prefix}-cluster"})
   engine_version                    = var.engine_version
 }
+
 
 
 
