@@ -37,7 +37,7 @@ resource "aws_docdb_cluster_parameter_group" "main" {
 
 
 
-resource "aws_docdb_cluster" "docdb" {
+resource "aws_docdb_cluster" "main" {
   cluster_identifier                = "${local.name_prefix}-cluster"
   engine                            = "docdb"
   master_username                   = data.aws_ssm_parameter.master_username.value
@@ -53,6 +53,10 @@ resource "aws_docdb_cluster" "docdb" {
 }
 
 
-
-
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count              = var.instance_count
+  identifier         = "${local.name_prefix}-cluster-instance-${count.index}"
+  cluster_identifier = aws_docdb_cluster.main.id
+  instance_class     = var.instance_class
+}
 
